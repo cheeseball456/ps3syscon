@@ -1,7 +1,11 @@
 #!/usr/bin/python3
 
 from binascii import unhexlify as uhx
-from Cryptodome.Cipher import AES # pycryptodomex
+from platform import platform as plat
+if plat().__contains__("arch"):
+    from Crypto.Cipher import AES # pycryptodomex
+else:   
+    from Cryptodome.Cipher import AES # pycryptodomex
 import os
 import string
 import sys
