@@ -3,7 +3,7 @@
 from binascii import unhexlify as uhx
 from platform import platform as plat
 if plat().__contains__("arch"):
-    from Crypto.Cipher import AES # pycryptodomex
+    from Crypto.Cipher import AES # pycryptodomex module name on arch.
 else:   
     from Cryptodome.Cipher import AES # pycryptodomex
 import os
@@ -12,6 +12,7 @@ import sys
 import signal
 import argparse
 import time
+from pathlib import Path
 
 class PS3UART(object):
     try:
@@ -179,6 +180,11 @@ class PS3UART(object):
 def main(argc, argv):
     if(argc < 3):
         print(os.path.basename(__file__) + ' <serial port> <sc type ["CXR", "CXRF", "SW"]> <Optional:[-l log.txt]>')
+        sys.exit(1)
+
+    
+    if not Path(argv[1]).exists():
+        print("Specified serial port does not exist")
         sys.exit(1)
     ps3 = PS3UART(argv[1], argv[2])
     raw_input_c = vars(__builtins__).get('raw_input', input)
