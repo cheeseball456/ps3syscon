@@ -191,6 +191,10 @@ def main(argc, argv):
 
     # Optional log file
     if '-l' in argv:
+        log_file_path = argv[argv.index('-l') + 1]
+        if not os.access(log_file_path,os.W_OK):
+            print(f"Cannot write to specified log file location: {log_file_path}")
+            sys.exit(1)
         log_file = open(argv[argv.index('-l') + 1], 'a')
         print('Logging enabled. Writing to ' + argv[argv.index('-l') + 1])
     else:
